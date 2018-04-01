@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const hbs = require('hbs');
 
+const port = process.env.port || 3000;
+
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear()
@@ -13,14 +15,6 @@ hbs.registerHelper('screamIt', (text) => {
 app.set('view engine', 'hbs');
 
 app.use(express.static(__dirname + '/public'));
-
-/* app.use((req, res, next) => {
-    res.render('page.hbs', {
-        pageTitle: 'Site is updating...',
-        pageHeader: 'Site is updating.',
-        pageContent: 'Site is updating. Please come later.'
-    });
-}); */
 
 app.get('/', (req, res) => {
     res.render('page.hbs', {
@@ -41,6 +35,6 @@ app.get('/about', (req, res) => {
 });
 
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
 });
